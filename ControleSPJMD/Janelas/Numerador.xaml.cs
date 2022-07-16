@@ -1,21 +1,10 @@
 ﻿using ControleSPJMD.Controle;
 using ControleSPJMD.Mensagens;
-using Microsoft.VisualBasic.ApplicationServices;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ControleSPJMD.Janelas
 {
@@ -191,43 +180,11 @@ namespace ControleSPJMD.Janelas
             }
         }
 
-        /*
-                private void RadioButton_Selecionado(object sender, RoutedEventArgs e)
-                {
-                    rb = (RadioButton)sender;
-                    btnEditarNum.Visibility = Visibility.Collapsed;
-                    if (dataNumFim.SelectedDate < dataNumInicio.SelectedDate)
-                    {
-                        AcionarCalendarioNum(sender, e);
-                        MessageBox.Show("A Data de término não pode ser anterior a data de início.", "ATENÇÃO!", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        dataNumFim.Text = DateTime.Now.ToString();
-                        dataNumInicio.Text = "01/01/" + DateTime.Now.Year.ToString();
-                    }
-                    else
-                    {                
-                        var dataInicio = DateTime.Parse(dataNumInicio.Text).ToString("yyyy/MM/dd");
-                        var dataFin = DateTime.Parse(dataNumFim.Text).ToString("yyy/MM/dd");
-                        dt.Clear();
-                        dt = control.Numerador_Principal(rb.Content.ToString(), dataInicio.Replace("/", "-"), dataFin.Replace("/", "-"));
-
-                        dtNumPrinc.DataContext = dt;
-                        lblQtdResNumPrincipal.Content = dt.Rows.Count + " registros";
-                    }           
-                }
-        */
-
+       
         private void AcionarCalendarioNum(object sender, RoutedEventArgs e)
         {
             ResetarVariaveis();            
-            /*
-            rdbOficio.IsChecked = false;
-            rdbDespacho.IsChecked = false;
-            rdbOS.IsChecked = false;
-            rdbParte.IsChecked = false;
-            rdbMemorando.IsChecked = false;
-            rdbEmail.IsChecked = false;
-            */
-            //dt.Rows.Clear();
+           
             dtNumPrinc.DataContext = dt;
             lblQtdResNumPrincipal.Content = null;
             btnEditarNum.Visibility = Visibility.Collapsed;
@@ -237,49 +194,14 @@ namespace ControleSPJMD.Janelas
         {
             AcionarCalendarioNum(sender, e);
         }
-/*
-        private void dtNumPrinc_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var x = dtNumPrinc.SelectedItem as DataRowView;
-            var y = x[0].ToString();
-            var xx = x[9].ToString();
-            if (x?[0].ToString() == NomeUsuario && xx == "")
-            {
-                IdNumerador = x?[1].ToString();
-                if (btnEditarNum.Visibility == Visibility.Collapsed)
-                {
-                    btnEditarNum.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                if (btnEditarNum.Visibility == Visibility.Visible)
-                {
-                    btnEditarNum.Visibility = Visibility.Collapsed;
-                }
-            }
-        }
-*/
+
+
         private void dtNumPrinc_RowDetailsVisibilityChanged(object sender, DataGridRowDetailsEventArgs e)
         {            
             if (gridPrincipalNum.Visibility == Visibility.Visible)
             {
                 DataRowView? x = dtNumPrinc.SelectedItem as DataRowView;
-                /*
-                var aa = x?.Row[0];
-                var a = x?.Row[1];
-                var b = x?.Row[2];
-                var c = x?.Row[3];
-                var d = x?.Row[4];
-                var g = x?.Row[5];
-                var f = x?.Row[6];
-                var h = x?.Row[7];
-                var i = x?.Row[8];
-                var j = x?.Row[9];
-
-                var y = x?.Row[0].ToString();
-                var xx = x?.Row[9];
-                */
+               
                 if (x?[0].ToString() == NomeUsuario && x?.Row[9] == "")
                 {
                     IdNumerador = x?[1].ToString();

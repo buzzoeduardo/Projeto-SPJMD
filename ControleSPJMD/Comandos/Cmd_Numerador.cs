@@ -183,7 +183,6 @@ namespace ControleSPJMD.Comandos
                 cmd.CommandText = "select usuario.nome, numerador.id, numerador.tipo, numerador.numero, numerador.assunto, date_format(numerador.data, '%d-%m-%y')" +
                    "as data, numerador.destino, numerador.referencia, numerador.anexo, numerador.observacao from usuario join numerador on usuario.id = numerador.idUsuario " +
                    "where numerador.id = ?";
-                // cmd.CommandText = "select tipo, numero, date_format(data, '%d-%m-%y') from numerador where id = ?";
                 cmd.Parameters.Clear();
                 cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
                 cmd.Connection = con.Conectar();
