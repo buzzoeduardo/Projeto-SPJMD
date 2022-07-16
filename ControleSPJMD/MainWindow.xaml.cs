@@ -116,5 +116,11 @@ namespace ControleSPJMD
             num.NomeUsuario = NomeUser;
             num.ShowDialog();
         }
+
+        private void btnPoliciais_Click(object sender, RoutedEventArgs e)
+        {
+            Policial pm = new Policial();
+            pm.ShowDialog();
+        }
     }
 }

@@ -79,3 +79,7 @@ F:\ProjetoC#\ControleSPJMD\ControleSPJMD\obj\Debug\net5.0-windows\Mensagens\Mens
 F:\ProjetoC#\ControleSPJMD\ControleSPJMD\obj\Debug\net5.0-windows\GeneratedInternalTypeHelper.g.cs
 F:\ProjetoC#\ControleSPJMD\ControleSPJMD\obj\Debug\net5.0-windows\Mensagens\CancelarNumerador.g.cs
 F:\ProjetoC#\ControleSPJMD\ControleSPJMD\obj\Debug\net5.0-windows\Mensagens\CancelarNumerador.baml
+F:\ProjetoC#\ControleSPJMD\ControleSPJMD\obj\Debug\net5.0-windows\Janelas\Policial.g.cs
+F:\ProjetoC#\ControleSPJMD\ControleSPJMD\obj\Debug\net5.0-windows\Janelas\Policial.baml
+F:\ProjetoC#\ControleSPJMD\ControleSPJMD\obj\Debug\net5.0-windows\Mensagens\Mensagem_PM_Cadastrado.g.cs
+F:\ProjetoC#\ControleSPJMD\ControleSPJMD\obj\Debug\net5.0-windows\Mensagens\Mensagem_PM_Cadastrado.baml

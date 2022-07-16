@@ -10,15 +10,24 @@
     <Compile Update="Janelas\Numerador.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Janelas\Policial.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Mensagens\CancelarNumerador.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Mensagens\Mensagem_Num_Cadastrado.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Mensagens\Mensagem_PM_Cadastrado.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Janelas\Numerador.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Janelas\Policial.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
@@ -28,6 +37,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Mensagens\Mensagem_Num_Cadastrado.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Mensagens\Mensagem_PM_Cadastrado.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
