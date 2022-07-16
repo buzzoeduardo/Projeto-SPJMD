@@ -1,0 +1,89 @@
+﻿<Window x:Class="ControleSPJMD.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"        
+        mc:Ignorable="d"
+        Language="pt-BR"
+        Title="JanelaProcedimento" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Width="1280" Height="680" WindowStyle="None" Icon="/ppjm.png">
+    <Grid>
+
+
+        <Grid x:Name="gridPrincipal" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="307*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1" Background="#FFD9D9D9">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="71"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Margin="0,10,0,534" Grid.RowSpan="2">
+                    <Grid.Background>
+                        <ImageBrush Stretch="Uniform" ImageSource="/deusa.png"/>
+                    </Grid.Background>
+                </Grid>
+                <Label Content="SPJMD" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Width="180" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="20" FontFamily="Rubik" Height="29" Margin="0,10,0,0" Foreground="#DD000000"/>
+                <Button x:Name="btnNumerador" Margin="10,49,10,468" Grid.Row="1" Background="#FF6374A6" BorderBrush="{x:Null}" Foreground="Black" Content="NUMERADOR" FontFamily="Verdana" TabIndex="1" FontWeight="Bold" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontStyle="Normal" FontSize="14" IsCancel="True" Click="btnNumerador_Click"/>
+                <Button Margin="10,86,10,431" Grid.Row="1" Background="#FF6374A6" BorderBrush="{x:Null}" Foreground="Black" Content="POLICIAIS" FontFamily="Verdana" TabIndex="2" FontSize="14" FontWeight="Bold"/>
+                <Button Margin="10,123,10,394" Grid.Row="1" Background="#FF6374A6" BorderBrush="{x:Null}" Foreground="Black" Content="PROCEDIMENTOS" FontFamily="Verdana" TabIndex="3" FontSize="14" FontWeight="Bold"/>
+                <Button Margin="10,160,10,357" Grid.Row="1" Background="#FF6374A6" BorderBrush="{x:Null}" Foreground="Black" Content="PROCESSOS" FontFamily="Verdana" TabIndex="4" FontSize="14" FontWeight="Bold"/>
+                <Button Margin="10,197,10,320" Grid.Row="1" Background="#FF6374A6" BorderBrush="{x:Null}" Foreground="Black" Content="CORREG/CAJ" FontFamily="Verdana" TabIndex="5" FontSize="14" FontWeight="Bold"/>
+                <Button Margin="10,234,10,283" Grid.Row="1" Background="#FF6374A6" BorderBrush="{x:Null}" Foreground="Black" Content="USUÁRIOS" FontFamily="Verdana" TabIndex="6" Cursor="Hand" FontWeight="Bold" FontSize="14"/>
+                <Label x:Name="lblBuzzoDeveloper" Content="Label" HorizontalAlignment="Center" Margin="0,514,0,0" Grid.Row="1" VerticalAlignment="Top" FontFamily="Verdana" Width="180" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" FontWeight="Bold" FontSize="10"/>
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="12" Color="Black" RenderingBias="Quality" ShadowDepth="1" Direction="350"/>
+                </Grid.Effect>
+            </Grid>
+            <Grid x:Name="gridBarraTitulo" Grid.ColumnSpan="2" Background="#FF020873" MouseDown="gridBarraTitulo_MouseDown">
+                <Rectangle/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="btnCalendario" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Width="25" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" TabIndex="7" Click="btnCalendario_Click" >
+                        <materialDesign:PackIcon Kind="Calendar"/>
+                    </Button>
+                    <Button x:Name="btnMinimizar" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Width="25" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="btnMinimizar_Click" TabIndex="8" >
+                        <materialDesign:PackIcon Kind="WindowMinimize"/>
+                    </Button>
+                    <Button x:Name="btnFecharPrograma" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Width="25" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="btnFecharPrograma_Click" TabIndex="9">
+                        <materialDesign:PackIcon Kind="Power"/>
+                    </Button>
+                </StackPanel>
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="12" Color="Black" RenderingBias="Quality" ShadowDepth="1" Direction="630"/>
+                </Grid.Effect>
+            </Grid>
+            <Grid Grid.Row="2" Background="#FF020873" Grid.ColumnSpan="2">
+                <Rectangle/>
+                <Label x:Name="lblPM_Logado" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Verdana" FontSize="9" Foreground="White"/>
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="12" Color="Black" RenderingBias="Quality" ShadowDepth="1" Direction="-630"/>
+                </Grid.Effect>
+            </Grid>
+            <Grid x:Name="gridCalendario" Visibility="Collapsed" Grid.Column="1" Margin="803,10,10,246" Grid.Row="1">
+                <Calendar HorizontalAlignment="Left" VerticalAlignment="Center" Width="257"/>
+            </Grid>
+        </Grid>
+
+
+        <Grid x:Name="gridLogin" Visibility="Visible" Background="White" HorizontalAlignment="Right" Width="1280">
+            <Label Content="SEÇÃO DE POLÍCIA JUDICIÁRIA MILITAR E DISCIPLINA" Margin="0,31,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Constantia" FontSize="36" FontStyle="Normal" FontWeight="Bold"/>
+            <Image Stretch="Uniform" StretchDirection="Both" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,107,0,0" Height="246" Width="326" Source="/deusa.png"/>
+            <Label Content="USUÁRIO" HorizontalAlignment="Center" Margin="0,385,0,0" VerticalAlignment="Top" FontFamily="Constantia" FontWeight="Bold" FontSize="16"/>
+            <TextBox x:Name="txtLogin" HorizontalAlignment="Center" Margin="0,418,0,0" VerticalAlignment="Top" Width="120" FontFamily="Arial Black" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TabIndex="0" PreviewTextInput="txtLogin_PreviewTextInput" MaxLength="6" TextWrapping="Wrap" TextChanged="txtLogin_TextChanged"/>
+            <Label Content="SENHA" HorizontalAlignment="Center" Margin="0,497,0,0" VerticalAlignment="Top" FontFamily="Constantia" FontWeight="Bold" FontSize="16"/>
+            <PasswordBox x:Name="txtSenha" HorizontalAlignment="Center" Margin="0,530,0,0" VerticalAlignment="Top" Width="120" TabIndex="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14"/>
+            <Button x:Name="btnEntrar" Content="ENTRAR" HorizontalAlignment="Left" Margin="528,601,0,0" VerticalAlignment="Top" Background="White" Foreground="Black" BorderBrush="Black" TabIndex="2" Width="92" Click="btnEntrar_Click" FontWeight="Bold" />
+            <Button x:Name="btnSairLogin" Content="FECHAR" HorizontalAlignment="Left" Margin="660,601,0,0" VerticalAlignment="Top" Background="White" Foreground="Black" BorderBrush="Black" TabIndex="3" Width="92" Click="btnSairLogin_Click" FontWeight="Bold"/>
+        </Grid>
+    </Grid>
+
+
+</Window>

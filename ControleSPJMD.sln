@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleSPJMD", "ControleSPJMD\ControleSPJMD.csproj", "{110899BE-4AC1-4D00-9416-819DEEFD978D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{110899BE-4AC1-4D00-9416-819DEEFD978D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{110899BE-4AC1-4D00-9416-819DEEFD978D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{110899BE-4AC1-4D00-9416-819DEEFD978D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{110899BE-4AC1-4D00-9416-819DEEFD978D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {27AFBBA8-6249-4B35-B607-0C207D57945E}
+	EndGlobalSection
+EndGlobal

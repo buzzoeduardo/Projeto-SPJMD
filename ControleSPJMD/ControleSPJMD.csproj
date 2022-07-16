@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="deusa.png" />
+    <None Remove="deusabranca.png" />
+    <None Remove="Mensagens\atencao.png" />
+    <None Remove="Mensagens\ok.png" />
+    <None Remove="ppjm.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignColors" Version="2.0.6" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
+    <PackageReference Include="MaterialSkin.2" Version="2.3.1" />
+    <PackageReference Include="ModernUI.WPF" Version="1.0.9" />
+    <PackageReference Include="ModernUICharts.WPF.Beta" Version="0.9.1" />
+    <PackageReference Include="MySql.Data" Version="8.0.29" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="deusa.png" />
+    <Resource Include="deusabranca.png" />
+    <Resource Include="Mensagens\atencao.png" />
+    <Resource Include="Mensagens\ok.png" />
+    <Resource Include="ppjm.png" />
+  </ItemGroup>
+
+</Project>
