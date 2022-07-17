@@ -29,16 +29,14 @@ namespace ControleSPJMD.Comandos
         {
             Re = re;
             Dig = dig;
-            Posto = posto.ToUpper();
+            Posto = posto;
             Nome = nome.ToUpper();
             DateTime dtNasc = new DateTime();
             DateTime dtAdm = new DateTime();
             dtNasc = DateTime.Parse(dataNasc);
             dtNasc.ToString("yyyy/MM/dd").Replace("/", "-");
-            dtNasc = DateTime.MinValue;
             dtAdm = DateTime.Parse(dataAdm);
             dtAdm.ToString("yyyy/MM/dd").Replace('/', '-');
-            dtAdm = DateTime.MinValue;
 
             try
             {
@@ -73,7 +71,7 @@ namespace ControleSPJMD.Comandos
                         cmd.Parameters.Add("@dataAdm", MySqlDbType.Date).Value = dtAdm;
                         cmd.Parameters.Add("@telefone", MySqlDbType.VarChar, 11).Value = telefone;
                         cmd.Parameters.Add("@telefone2", MySqlDbType.VarChar, 11).Value = telefone2;
-                        cmd.Parameters.Add("@situacao", MySqlDbType.VarChar, 15).Value = situacao.ToUpper();
+                        cmd.Parameters.Add("@situacao", MySqlDbType.VarChar, 15).Value = situacao;
                         cmd.Connection = con.Conectar();
                         cmd.ExecuteNonQuery();
                         con.Desconectar();
@@ -90,6 +88,66 @@ namespace ControleSPJMD.Comandos
                 MessageBox.Show("Erro com o Banco de Dados" + e, "ERRO!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return ResultPM;
+        }
+
+        public DataTable PmPrincipal()
+        {
+            try
+            {
+                cmd.CommandText = "select posto, re, dig, nome from policial where situacao = 'Ativo' order by " +
+                    "posto = 'SD 2ª CL PM', posto = 'SD 1ª CL PM', posto = 'CB PM', posto = '3º SGT PM', " +
+                    "posto = '2º SGT PM', posto = '1º SGT PM', posto = 'SUBTEN PM', posto = 'ASP OF PM', " +
+                    "posto = '1º TEN PM', posto = '2º TEN PM', posto = 'CAP PM', posto = 'MAJ PM', posto = 'TEN CEL PM', posto = 'CEL PM'";                
+                cmd.Connection = con.Conectar();
+                dt.Clear();
+                dt.Load(cmd.ExecuteReader());
+                con.Desconectar();
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show("Erro com o Banco de Dados" + e, "ERRO!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return dt;
+        }
+
+        public DataTable PesquisaPM(string entrada)
+        {
+            try
+            {
+                cmd.CommandText = "select posto, re, dig, nome from policial where (re like '%" + entrada + "%' or nome like '%" + entrada + "%') order by " +
+                    "posto = 'SD 2ª CL PM', posto = 'SD 1ª CL PM', posto = 'CB PM', posto = '3º SGT PM', " +
+                    "posto = '2º SGT PM', posto = '1º SGT PM', posto = 'SUBTEN PM', posto = 'ASP OF PM', " +
+                    "posto = '1º TEN PM', posto = '2º TEN PM', posto = 'CAP PM', posto = 'MAJ PM', posto = 'TEN CEL PM', posto = 'CEL PM'";               
+                cmd.Parameters.Clear();
+                cmd.Connection = con.Conectar();
+                dt.Clear();
+                dt.Load(cmd.ExecuteReader());
+                con.Desconectar();
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show("Erro com o Banco de Dados" + e, "ERRO!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return dt;
+        }
+
+        public DataTable EditarPM(string entrada)
+        {
+            try
+            {
+                cmd.CommandText = "select id, re, dig, posto, nome, email, cpf, rg, date_format(dataNasc, '%d-%m-%y'), date_format(dataAdm, '%d-%m-%y'), telefone, telefone2, situacao from policial where re = ?";
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add("@re", MySqlDbType.VarChar, 6).Value = entrada;
+                cmd.Connection = con.Conectar();
+                dt.Clear();
+                dt.Load(cmd.ExecuteReader());
+                con.Desconectar();
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show("Erro com o Banco de Dados" + e, "ERRO!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return dt;
         }
     }
 }

@@ -2,6 +2,8 @@
 using ControleSPJMD.Mensagens;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -16,16 +18,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace ControleSPJMD.Janelas
-{   
+{
     public partial class Policial : Window
     {
         Controle_Policiais control = new Controle_Policiais();
-        public string PM_Cadastrado { get; set; }
+        public string? PM_Cadastrado { get; private set; }
+        public string? RE_PM { get; private set; }
         public Policial()
         {
             InitializeComponent();
             lblBuzzoDeveloper.Content = "Buzzo® Developer - " + DateTime.Now.Year.ToString();
             lblNomeGridPM.Content = "POLICIAIS MILITARES";
+            gridPmPrincipal.DataContext = control.PM_Principal();
         }
 
         private void PermitirNumeros(object sender, TextCompositionEventArgs e)
@@ -35,6 +39,7 @@ namespace ControleSPJMD.Janelas
 
         public void GridInicial(object sender, RoutedEventArgs e)
         {
+            gridPmPrincipal.DataContext = control.PM_Principal();
             btnRetornar.Visibility = Visibility.Collapsed;
             gridPmPrincipal.Visibility = Visibility.Visible;
             gridNovoPM.Visibility = Visibility.Collapsed;
@@ -53,7 +58,7 @@ namespace ControleSPJMD.Janelas
         {
             Close();
         }
-      
+
 
         private void btn_Limpar(object sender, RoutedEventArgs e)
         {
@@ -86,6 +91,7 @@ namespace ControleSPJMD.Janelas
         {
             if (gridNovoPM.Visibility == Visibility.Collapsed)
             {
+                btnRetornar.Visibility = Visibility.Visible;
                 gridPmPrincipal.Visibility = Visibility.Collapsed;
                 gridEditarPM.Visibility = Visibility.Collapsed;
                 gridNovoPM.Visibility = Visibility.Visible;
@@ -107,35 +113,114 @@ namespace ControleSPJMD.Janelas
                 }
                 else
                 {
-                    if (txtNomePM.Text.Length < 4)
+                    if (txtNomePM.Text.Length < 3)
                     {
-                        MessageBox.Show("Nome muito curto. \n\rPara uma melhor segurança e controle, insira um nome com mais de 4 (quatro) caracteres.",
+                        MessageBox.Show("Nome muito curto. \n\rInsira um nome com 3 (três) ou mais caracteres.",
                             "ATENÇÃO!", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     else
                     {
-                        string dtNasc = dataNasc.Text.ToString();
-                        string dtAdm = dataAdm.Text.ToString();
-                        if (string.IsNullOrEmpty(dtNasc))
+                        string dtNasc = "";
+                        string dtAdm = "";
+                        if (string.IsNullOrEmpty(dataNasc.Text))
                         {
                             dtNasc = DateTime.MinValue.ToString();
                         }
-                        if (string.IsNullOrEmpty(dtAdm))
+                        else
+                        {
+                            dtNasc = dataNasc.Text;
+                        }
+                        if (string.IsNullOrEmpty(dataAdm.Text))
                         {
                             dtAdm = DateTime.MinValue.ToString();
                         }
+                        else
+                        {
+                            dtAdm = dataAdm.Text;
+                        }
                         control.Salvar_Policial(txtRE.Text, txtDig.Text, cbxPostGrad.Text, txtNomePM.Text, txtEmail.Text, txtCpf.Text, txtRg.Text,
-                            dtNasc, dtAdm, txtTelefone.Text, txtTelefone2.Text, "ATIVO");
+                            dtNasc, dtAdm, txtTelefone.Text, txtTelefone2.Text, "Ativo");
                         PM_Cadastrado = control.Resultado;
-                        Mensagem_PM_Cadastrado men = new Mensagem_PM_Cadastrado();
-                        men.Mensagem = PM_Cadastrado;
-                        men.ShowDialog();
-                        btn_Limpar(sender, e);
-                        GridInicial(sender, e);
+                        if (!string.IsNullOrEmpty(PM_Cadastrado))
+                        {
+                            Mensagem_PM_Cadastrado men = new Mensagem_PM_Cadastrado();
+                            men.Mensagem = PM_Cadastrado;
+                            men.ShowDialog();
+                            btn_Limpar(sender, e);
+                            GridInicial(sender, e);
+                        }
+                        else
+                        {
+                            txtRE.Clear();
+                            txtDig.Clear();
+                        }
                     }
                 }
-                              
+
             }
         }
+
+        private void btnPesquisaPm_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtPesquisaPm.Text.Length < 3)
+            {
+                MessageBox.Show("Digite 3 (três) ou mais caracteres para pesquisar.", "ATENÇÃO!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                gridPmPrincipal.DataContext = control.Pesquisa_PM(txtPesquisaPm.Text);
+            }
+            txtPesquisaPm.Clear();
+        }
+
+        private void btnAtualizarPm_Click(object sender, RoutedEventArgs e)
+        {
+            gridPmPrincipal.DataContext = control.PM_Principal();
+        }
+
+        private void dtPmPrincipal_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            if (btnEditarPm.Visibility == Visibility.Collapsed)
+            {
+                btnEditarPm.Visibility = Visibility.Visible;
+                DataRowView? x = dtPmPrincipal.SelectedItem as DataRowView;
+
+                RE_PM = x?[1].ToString();
+            }
+        }
+
+        private void btnEditarPm_Click(object sender, RoutedEventArgs e)
+        {
+            if (gridEditarPM.Visibility == Visibility.Collapsed)
+            {
+                gridEditarPM.Visibility = Visibility.Visible;
+                gridPmPrincipal.Visibility = Visibility.Collapsed;
+            }
+
+            DataTable dt = new DataTable();
+            dt = control.Editar_PM(RE_PM);
+
+            cbxPostGrad_Editar.SelectedItem = dt.Rows[0][0].ToString();
+            txtRE_Editar.Text = dt.Rows[0][1].ToString();
+            txtDig_Editar.Text = dt.Rows[0][2].ToString();
+            txtNomePM_Editar.Text = dt.Rows[0][3].ToString();          
+            txtEmail_Editar.Text = dt.Rows[0][5].ToString().Trim();
+            txtCpf_Editar.Text = dt.Rows[0][6].ToString();
+            txtRg_Editar.Text = dt.Rows[0][7].ToString();
+            
+            string? nasc = dt.Rows[0][8].ToString();
+            DateTime dtNasc = DateTime.Parse(nasc);            
+            dataNasc_Editar.Text = dtNasc.ToString("dd/MM/yyyy");
+
+            string? adm = dt.Rows[0][9].ToString();
+            DateTime dtAdm = DateTime.Parse(adm);
+            dataAdm_Editar.Text = dtAdm.ToString("dd/MM/yyyy");
+
+            txtTelefone_Editar.Text = dt.Rows[0][10].ToString();
+            txtTelefone2_Editar.Text = dt.Rows[0][11].ToString();
+            cbxSituacao_Editar.SelectedItem = dt.Rows[0][12];            
+        }
+
+       
     }
 }
