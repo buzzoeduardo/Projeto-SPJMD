@@ -12,11 +12,13 @@ namespace ControleSPJMD.Comandos
         private MySqlCommand cmd = new MySqlCommand();
         private Conection con = new Conection();
         private DataTable dt = new DataTable();
+        private MySqlDataReader? dr;
 
         public int Qtd { get; private set; }
         public string? Numero { get; private set; }
         public string? Tipo { get; private set; }
         public string? IdUsuario { get; private set; }
+        public bool Existe { get; set; }
 
         public string ResultNum = "";
 
@@ -26,18 +28,17 @@ namespace ControleSPJMD.Comandos
             Tipo = tipo.ToUpper();
             IdUsuario = idUsuario;
             try
-            {               
-                cmd.CommandText = "select usuario.nome, numerador.id, numerador.tipo, numerador.numero, numerador.assunto, date_format(numerador.data, '%d-%m-%y')" +
-                   "as data, numerador.destino, numerador.referencia, numerador.anexo, numerador.observacao from usuario join numerador on usuario.id = numerador.idUsuario " +
-                   "where (year(data) = year(curdate())) and tipo = ?";
+            {
+                cmd.CommandText = "select count(id) from numerador where (year(data) = year(curdate())) and tipo = ?";
                 cmd.Parameters.Clear();               
                 cmd.Parameters.Add("@tipo", MySqlDbType.VarChar, 20).Value = Tipo;
                 cmd.Connection = con.Conectar();
-                dt.Clear();
-                dt.Load(cmd.ExecuteReader());
+                dr = cmd.ExecuteReader();
+                dr.Read();
+                Existe = dr.HasRows;
+                Qtd = dr.GetInt32(0);
+                dr.Close();
                 con.Desconectar();
-
-                Qtd = dt.Rows.Count;
 
                 if (Qtd == 0)
                 {

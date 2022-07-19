@@ -52,13 +52,11 @@ namespace ControleSPJMD.Comandos
                 dr.Read();
                 Qtd_Process = dr.HasRows;
                 dr.Close();
-               // dt.Clear();
-               // dt.Load(cmd.ExecuteReader());
                 con.Desconectar();
                
                 Qtd = dt.Rows.Count;
 
-                if (Qtd_Process == true) //(Qtd > 0)
+                if (Qtd_Process == true) 
                 {
                     MessageBox.Show("Re já cadastrado no Banco de Dados", "ATENÇÃO!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
@@ -210,8 +208,6 @@ namespace ControleSPJMD.Comandos
             try
             {
                 cmd.CommandText = "select id_procedimento from procedimento where id_pm = ? or id_encarregado = ?";
-                //cmd.CommandText = "select procedimento.id_procedimento from procedimento join policial on (procedimento.id_pm = policial.id) or"+
-                      //  " (procedimento.id_encarregado = policial.id) where policial.id = ?";
                 cmd.Parameters.Clear();
                 cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
                 cmd.Parameters.Add("@id2", MySqlDbType.Int32).Value = id;
@@ -220,8 +216,6 @@ namespace ControleSPJMD.Comandos
                 dr.Read();
                 Qtd_Process = dr.HasRows;               
                 dr.Close();
-                //dt.Clear();
-               // dt.Load(cmd.ExecuteReader(CommandBehavior.CloseConnection));
                 con.Desconectar();
             }
             catch (MySqlException e)
