@@ -63,7 +63,7 @@
         </Grid>
 
 
-        <Grid x:Name="gridPmPrincipal" Visibility="Collapsed" Grid.Column="1" Margin="10,10,10,10" Grid.Row="1">
+        <Grid x:Name="gridPmPrincipal" Visibility="Visible" Grid.Column="1" Margin="10,10,10,10" Grid.Row="1">
             <DataGrid x:Name="dtPmPrincipal" AutoGenerateColumns="False"  ItemsSource="{Binding}" AlternationCount="2" RowBackground="White" AlternatingRowBackground="#FF6374A6" Height="483" VerticalAlignment="Top" GridLinesVisibility="All" SelectionUnit="FullRow" SelectionMode="Extended" HorizontalGridLinesBrush="Black" VerticalGridLinesBrush="Black" CanUserDeleteRows="False" CanUserResizeRows="False" IsReadOnly="True" ScrollViewer.CanContentScroll="False" RowDetailsVisibilityMode="VisibleWhenSelected" Background="White" Margin="0,107,0,0" HorizontalAlignment="Center" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" BorderBrush="Black" Foreground="#DD000000" HeadersVisibility="Column" BorderThickness="1,1,1,1" SelectedCellsChanged="dtPmPrincipal_SelectedCellsChanged" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding posto}" Header="Post/Grad" Width="140" FontSize="12" FontFamily="Verdana"  FontWeight="Bold"/>
@@ -93,7 +93,7 @@
             <Label Content="D" HorizontalAlignment="Left" Margin="333,17,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold"/>
             <TextBox x:Name="txtNomePM" HorizontalAlignment="Left" Margin="404,40,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="615" FontFamily="Verdana" FontWeight="Bold" BorderBrush="#FFD9D9D9" BorderThickness="1,1,1,1" Padding="4,4,4,4" Cursor="Arrow" Foreground="Black" MaxLength="70" TabIndex="6"/>
             <Label Content="Nome" HorizontalAlignment="Left" Margin="404,17,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold"/>
-            <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Margin="41,156,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="682" FontFamily="Verdana" FontWeight="Bold" BorderBrush="#FFD9D9D9" BorderThickness="1,1,1,1" Padding="4,4,4,4" Cursor="Arrow" MaxLength="70" Foreground="Black" TabIndex="7"/>
+            <TextBox Text="@policiamilitar.sp.gov.br" x:Name="txtEmail" SelectionStart="0" HorizontalAlignment="Left" Margin="41,156,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="682" FontFamily="Verdana" FontWeight="Bold" BorderBrush="#FFD9D9D9" BorderThickness="1,1,1,1" Padding="4,4,4,4" Cursor="Arrow" MaxLength="70" Foreground="Black" TabIndex="7"/>
             <Label Content="E-mail" HorizontalAlignment="Left" Margin="41,133,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold"/>
             <TextBox x:Name="txtCpf" HorizontalAlignment="Left" Margin="41,275,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" FontFamily="Verdana" FontWeight="Bold" BorderBrush="#FFD9D9D9" BorderThickness="1,1,1,1" Padding="4,4,4,4" Cursor="Arrow" MaxLength="11" Foreground="Black" TabIndex="10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" PreviewTextInput="PermitirNumeros"/>
             <Label Content="CPF" HorizontalAlignment="Left" Margin="41,252,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold"/>
@@ -127,7 +127,7 @@
         </Grid>
 
 
-        <Grid x:Name="gridEditarPM" Visibility="Visible" Margin="10,10,10,10" Grid.Column="1" Grid.Row="1" UseLayoutRounding="True">
+        <Grid x:Name="gridEditarPM" Visibility="Collapsed" Margin="10,10,10,10" Grid.Column="1" Grid.Row="1" UseLayoutRounding="True">
             <Label Content="Post/Grad" HorizontalAlignment="Left" Margin="41,17,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold"/>
             <ComboBox x:Name="cbxPostGrad_Editar" ItemsSource="{Binding Source={local:Controle_Enums {x:Type local:PostGrad_Enum}}}"  HorizontalAlignment="Left" Margin="41,40,0,0" VerticalAlignment="Top" Width="161" FontFamily="Verdana" FontWeight="Bold" BorderBrush="#FFD9D9D9" BorderThickness="1,1,1,1" Padding="4,4,4,4" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" TabIndex="3"/>
             <TextBox x:Name="txtRE_Editar" HorizontalAlignment="Left"  Margin="240,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" FontFamily="Verdana" FontWeight="Bold" BorderBrush="#FFD9D9D9" BorderThickness="1,1,1,1" Padding="4,4,4,4" MaxLength="6" Cursor="Arrow" TabIndex="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" PreviewTextInput="PermitirNumeros"/>

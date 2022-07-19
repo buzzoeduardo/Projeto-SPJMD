@@ -42,6 +42,7 @@ namespace ControleSPJMD.Janelas
 
         public void GridInicial(object sender, RoutedEventArgs e)
         {
+            btn_Limpar(sender, e);  
             gridPmPrincipal.DataContext = control.PM_Principal();
             btnRetornar.Visibility = Visibility.Collapsed;
             gridPmPrincipal.Visibility = Visibility.Visible;
@@ -72,7 +73,7 @@ namespace ControleSPJMD.Janelas
             txtCpf_Editar.Clear();
             txtDig.Clear();
             txtDig_Editar.Clear();
-            txtEmail.Clear();
+            txtEmail.Text = "@policiamilitar.sp.gov.br";
             txtEmail_Editar.Clear();
             txtNomePM.Clear();
             txtNomePM_Editar.Clear();
@@ -303,5 +304,6 @@ namespace ControleSPJMD.Janelas
             }
             Del_PM = false;
         }
+      
     }
 }

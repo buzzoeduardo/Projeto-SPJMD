@@ -23,8 +23,8 @@ namespace ControleSPJMD.Comandos
         public string? Re { get; private set; }
         public string? Dig { get; private set; }
         public string? Nome { get; private set; }
-        public bool PM_Vinculado { get; set; }
-        public bool Qtd_Process { get; set; }
+        public bool PM_Vinculado { get; private set; }
+        public bool Qtd_Process { get; private set; }
 
 
         public string SalvarPolicial(string re, string dig, string posto, string nome, string email, string cpf, string rg, string dataNasc, string dataAdm,
