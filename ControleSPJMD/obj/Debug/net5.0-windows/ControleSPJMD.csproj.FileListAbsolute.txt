@@ -83,3 +83,7 @@ F:\ProjetoC#\ControleSPJMD\ControleSPJMD\obj\Debug\net5.0-windows\Janelas\Polici
 F:\ProjetoC#\ControleSPJMD\ControleSPJMD\obj\Debug\net5.0-windows\Janelas\Policial.baml
 F:\ProjetoC#\ControleSPJMD\ControleSPJMD\obj\Debug\net5.0-windows\Mensagens\Mensagem_PM_Cadastrado.g.cs
 F:\ProjetoC#\ControleSPJMD\ControleSPJMD\obj\Debug\net5.0-windows\Mensagens\Mensagem_PM_Cadastrado.baml
+F:\ProjetoC#\ControleSPJMD\ControleSPJMD\obj\Debug\net5.0-windows\Mensagens\Mensagem_PM_Editado.g.cs
+F:\ProjetoC#\ControleSPJMD\ControleSPJMD\obj\Debug\net5.0-windows\Mensagens\Mensagem_PM_Editado.baml
+F:\ProjetoC#\ControleSPJMD\ControleSPJMD\obj\Debug\net5.0-windows\Mensagens\Mensagem_Confirmar_Delete.g.cs
+F:\ProjetoC#\ControleSPJMD\ControleSPJMD\obj\Debug\net5.0-windows\Mensagens\Mensagem_Confirmar_Delete.baml

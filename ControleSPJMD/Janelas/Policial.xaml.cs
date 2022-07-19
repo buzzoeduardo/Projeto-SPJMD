@@ -24,6 +24,9 @@ namespace ControleSPJMD.Janelas
         Controle_Policiais control = new Controle_Policiais();
         public string? PM_Cadastrado { get; private set; }
         public string? RE_PM { get; private set; }
+        public string? Id_PM { get; set; }
+
+        public bool Del_PM = false;
         public Policial()
         {
             InitializeComponent();
@@ -200,6 +203,8 @@ namespace ControleSPJMD.Janelas
             DataTable dt = new DataTable();
             dt = control.Editar_PM(RE_PM);
 
+            Id_PM = dt.Rows[0][4].ToString();
+
             cbxPostGrad_Editar.SelectedItem = dt.Rows[0][0].ToString();
             txtRE_Editar.Text = dt.Rows[0][1].ToString();
             txtDig_Editar.Text = dt.Rows[0][2].ToString();
@@ -221,6 +226,82 @@ namespace ControleSPJMD.Janelas
             cbxSituacao_Editar.SelectedItem = dt.Rows[0][12];            
         }
 
-       
+        private void btnSalvarPM_Editar_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(cbxPostGrad_Editar.Text) || string.IsNullOrEmpty(txtNomePM_Editar.Text) || string.IsNullOrEmpty(txtRE_Editar.Text) || string.IsNullOrEmpty(txtDig_Editar.Text))
+            {
+                MessageBox.Show("Preencha os Campo Obrigatórios", "ATENÇÃO!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                if (txtRE_Editar.Text.Length != 6)
+                {
+                    MessageBox.Show("RE inválido. O RE precisa conter 6 (seis) dígitos.", "ATENÇÃO!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else
+                {
+                    if (txtNomePM_Editar.Text.Length < 3)
+                    {
+                        MessageBox.Show("Nome muito curto. \n\rInsira um nome com 3 (três) ou mais caracteres.",
+                            "ATENÇÃO!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    else
+                    {
+                        string dtNasc = "";
+                        string dtAdm = "";
+                        if (string.IsNullOrEmpty(dataNasc_Editar.Text))
+                        {
+                            dtNasc = DateTime.MinValue.ToString();
+                        }
+                        else
+                        {
+                            dtNasc = dataNasc_Editar.Text;
+                        }
+                        if (string.IsNullOrEmpty(dataAdm_Editar.Text))
+                        {
+                            dtAdm = DateTime.MinValue.ToString();
+                        }
+                        else
+                        {
+                            dtAdm = dataAdm_Editar.Text;
+                        }
+                        control.Salvar_Edit_PM(Id_PM, txtRE_Editar.Text, txtDig_Editar.Text, cbxPostGrad_Editar.Text, txtNomePM_Editar.Text, 
+                            txtEmail_Editar.Text, txtCpf_Editar.Text, txtRg_Editar.Text,
+                            dtNasc, dtAdm, txtTelefone_Editar.Text, txtTelefone2_Editar.Text, cbxSituacao_Editar.Text);
+                        PM_Cadastrado = control.Resultado;
+                        if (!string.IsNullOrEmpty(PM_Cadastrado))
+                        {
+                            Mensagem_PM_Editado men = new Mensagem_PM_Editado();
+                            men.Mensagem = PM_Cadastrado;
+                            men.Situacao = cbxSituacao_Editar.Text.ToString();
+                            men.ShowDialog();
+                            btn_Limpar(sender, e);
+                            GridInicial(sender, e);
+                        }
+                        else
+                        {
+                            txtRE.Clear();
+                            txtDig.Clear();
+                        }
+                    }
+                }
+
+            }
+        }
+
+        private void btnDeletarPM_Click(object sender, RoutedEventArgs e)
+        {
+            control.Deletar_PM(Id_PM);
+            if(control.PM_Vinc == false)
+            {
+                Del_PM = true;
+                Mensagem_Confirmar_Delete men = new Mensagem_Confirmar_Delete();
+                men.DelPM = Del_PM;
+                men.Id_PM = Id_PM;
+                men.ShowDialog();                
+                Retornar(sender, e);
+            }
+            Del_PM = false;
+        }
     }
 }

@@ -26,6 +26,7 @@ namespace ControleSPJMD.Conexao
             if (conexao.State == ConnectionState.Open)
             {
                 conexao.Close();
+                conexao.Dispose();
             }
         }
     }

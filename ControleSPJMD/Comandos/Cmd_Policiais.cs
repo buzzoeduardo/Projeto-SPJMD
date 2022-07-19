@@ -15,6 +15,7 @@ namespace ControleSPJMD.Comandos
         private MySqlCommand cmd = new MySqlCommand();
         private Conection con = new Conection();
         private DataTable dt = new DataTable();
+        private MySqlDataReader? dr;
 
         public int Qtd { get; private set; }
         public string? ResultPM { get; private set; }
@@ -22,11 +23,14 @@ namespace ControleSPJMD.Comandos
         public string? Re { get; private set; }
         public string? Dig { get; private set; }
         public string? Nome { get; private set; }
+        public bool PM_Vinculado { get; set; }
+        public bool Qtd_Process { get; set; }
 
 
         public string SalvarPolicial(string re, string dig, string posto, string nome, string email, string cpf, string rg, string dataNasc, string dataAdm,
             string telefone, string telefone2, string situacao)
         {
+            ResultPM = null;
             Re = re;
             Dig = dig;
             Posto = posto;
@@ -44,18 +48,23 @@ namespace ControleSPJMD.Comandos
                 cmd.Parameters.Clear();
                 cmd.Parameters.Add("@re", MySqlDbType.VarChar, 6).Value = re;
                 cmd.Connection = con.Conectar();
-                dt.Clear();
-                dt.Load(cmd.ExecuteReader());
+                dr = cmd.ExecuteReader();
+                dr.Read();
+                Qtd_Process = dr.HasRows;
+                dr.Close();
+               // dt.Clear();
+               // dt.Load(cmd.ExecuteReader());
                 con.Desconectar();
-
+               
                 Qtd = dt.Rows.Count;
 
-                if (Qtd > 0)
+                if (Qtd_Process == true) //(Qtd > 0)
                 {
                     MessageBox.Show("Re já cadastrado no Banco de Dados", "ATENÇÃO!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 else
                 {
+                    cmd.Dispose();
                     try
                     {
                         cmd.CommandText = "insert into policial values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -102,7 +111,8 @@ namespace ControleSPJMD.Comandos
                 dt.Clear();
                 dt.Load(cmd.ExecuteReader());
                 con.Desconectar();
-            }
+                
+                }
             catch (MySqlException e)
             {
                 MessageBox.Show("Erro com o Banco de Dados" + e, "ERRO!", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -148,6 +158,105 @@ namespace ControleSPJMD.Comandos
                 MessageBox.Show("Erro com o Banco de Dados" + e, "ERRO!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return dt;
+        }
+
+        public string SalvarEditPM(string id, string re, string dig, string posto, string nome, string email, string cpf, string rg, string dataNasc, string dataAdm,
+            string telefone, string telefone2, string situacao)
+        {
+            ResultPM = null;
+            Re = re;
+            Dig = dig;
+            Posto = posto;
+            Nome = nome.ToUpper();
+            DateTime dtNasc = new DateTime();
+            DateTime dtAdm = new DateTime();
+            dtNasc = DateTime.Parse(dataNasc);
+            dtNasc.ToString("yyyy/MM/dd").Replace("/", "-");
+            dtAdm = DateTime.Parse(dataAdm);
+            dtAdm.ToString("yyyy/MM/dd").Replace('/', '-');
+            try
+            {
+                cmd.CommandText = "update policial set re = ?, dig = ?, posto = ?, nome = ?, email = ?, cpf = ?, rg = ?, dataNasc = ?, dataAdm = ?, telefone = ?, " +
+                    "telefone2 = ?, situacao = ? where id = ?";
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add("@re", MySqlDbType.VarChar, 6).Value = Re;
+                cmd.Parameters.Add("@dig", MySqlDbType.VarChar, 1).Value = Dig;
+                cmd.Parameters.Add("@posto", MySqlDbType.VarChar, 15).Value = Posto;
+                cmd.Parameters.Add("@nome", MySqlDbType.VarChar, 70).Value = Nome;
+                cmd.Parameters.Add("@email", MySqlDbType.VarChar, 70).Value = email.ToLower();
+                cmd.Parameters.Add("@cpf", MySqlDbType.VarChar, 11).Value = cpf;
+                cmd.Parameters.Add("@rg", MySqlDbType.VarChar, 10).Value = rg;
+                cmd.Parameters.Add("@dataNasc", MySqlDbType.Date).Value = dtNasc;
+                cmd.Parameters.Add("@dataAdm", MySqlDbType.Date).Value = dtAdm;
+                cmd.Parameters.Add("@telefone", MySqlDbType.VarChar, 11).Value = telefone;
+                cmd.Parameters.Add("@telefone2", MySqlDbType.VarChar, 11).Value = telefone2;
+                cmd.Parameters.Add("@situacao", MySqlDbType.VarChar, 15).Value = situacao;
+                cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+                cmd.Connection = con.Conectar();
+                cmd.ExecuteNonQuery();
+                con.Desconectar();
+                ResultPM = Posto + " " + Re + "-" + Dig + " " + Nome;
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show("Erro com o Banco de Dados" + e, "ERRO!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return ResultPM;
+        }
+
+        public bool DeletarPM(string id)
+        {
+            PM_Vinculado = true;            
+            try
+            {
+                cmd.CommandText = "select id_procedimento from procedimento where id_pm = ? or id_encarregado = ?";
+                //cmd.CommandText = "select procedimento.id_procedimento from procedimento join policial on (procedimento.id_pm = policial.id) or"+
+                      //  " (procedimento.id_encarregado = policial.id) where policial.id = ?";
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+                cmd.Parameters.Add("@id2", MySqlDbType.Int32).Value = id;
+                cmd.Connection = con.Conectar();
+                dr = cmd.ExecuteReader();
+                dr.Read();
+                Qtd_Process = dr.HasRows;               
+                dr.Close();
+                //dt.Clear();
+               // dt.Load(cmd.ExecuteReader(CommandBehavior.CloseConnection));
+                con.Desconectar();
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show("Erro com o Banco de Dados" + e, "ERRO!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (Qtd_Process == true)
+            {
+                MessageBox.Show("Não é possível excluir o Policial Militar selecionado. \n\rO Policial está vinculado à Processo/Procedimento. \n\r" +
+                    "Se realmente quiser excluir esse Policial da base de dados do sistema, desvincule-o do referido feito.", "ERRO!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                PM_Vinculado = false;  
+            }
+            return PM_Vinculado;
+        }
+
+        public void ConfirmarDeletePM(string id)
+        {
+            try
+            {
+                cmd.CommandText = "delete from policial where id = ?";
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+                cmd.Connection = con.Conectar();
+                cmd.ExecuteNonQuery();
+                con.Desconectar();
+                PM_Vinculado = true;
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show("Erro com o Banco de Dados" + e, "ERRO!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

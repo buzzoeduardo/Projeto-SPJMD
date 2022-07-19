@@ -14,6 +14,7 @@ namespace ControleSPJMD.Controle
         DataTable dt = new DataTable();
 
         public string? Resultado { get; set; }
+        public bool PM_Vinc { get; set; }
 
         public string Salvar_Policial(string re, string dig, string posto, string nome, string email, string cpf, string rg, string dataNasc, string dataAdm, string telefone, string telefone2, string situacao)
         {
@@ -34,6 +35,24 @@ namespace ControleSPJMD.Controle
         public DataTable Editar_PM(string entrada)
         {
             return dt = cmd.EditarPM(entrada);
+        }
+
+        public string Salvar_Edit_PM(string id, string re, string dig, string posto, string nome, string email, string cpf, string rg, string dataNasc, string dataAdm,
+            string telefone, string telefone2, string situacao)
+        {
+            cmd.SalvarEditPM(id, re, dig, posto, nome, email, cpf, rg, dataNasc, dataAdm, telefone, telefone2, situacao);
+            return Resultado = cmd.ResultPM;
+        }
+
+        public bool Deletar_PM(string id)
+        {
+            cmd.DeletarPM(id);
+            return PM_Vinc = cmd.PM_Vinculado;
+        }
+
+        public void Confirmar_Delete_PM(string id)
+        {
+            cmd.ConfirmarDeletePM(id);           
         }
     }
 }

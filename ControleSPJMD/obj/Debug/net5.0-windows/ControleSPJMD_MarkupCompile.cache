@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 F:\ProjetoC#\ControleSPJMD\ControleSPJMD\App.xaml
-6-1369026893
+8-1172500263
 
-1981859269
+21-935255648
 2141365059644
-Janelas\Numerador.xaml;Janelas\Policial.xaml;MainWindow.xaml;Mensagens\CancelarNumerador.xaml;Mensagens\Mensagem_Num_Cadastrado.xaml;Mensagens\Mensagem_PM_Cadastrado.xaml;
+Janelas\Numerador.xaml;Janelas\Policial.xaml;MainWindow.xaml;Mensagens\CancelarNumerador.xaml;Mensagens\Mensagem_Confirmar_Delete.xaml;Mensagens\Mensagem_Num_Cadastrado.xaml;Mensagens\Mensagem_PM_Cadastrado.xaml;Mensagens\Mensagem_PM_Editado.xaml;
 
 False
 

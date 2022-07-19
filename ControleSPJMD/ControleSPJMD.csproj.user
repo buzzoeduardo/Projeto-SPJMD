@@ -16,10 +16,16 @@
     <Compile Update="Mensagens\CancelarNumerador.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Mensagens\Mensagem_Confirmar_Delete.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Mensagens\Mensagem_Num_Cadastrado.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Mensagens\Mensagem_PM_Cadastrado.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Mensagens\Mensagem_PM_Editado.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -36,10 +42,16 @@
     <Page Update="Mensagens\CancelarNumerador.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Mensagens\Mensagem_Confirmar_Delete.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Mensagens\Mensagem_Num_Cadastrado.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Mensagens\Mensagem_PM_Cadastrado.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Mensagens\Mensagem_PM_Editado.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

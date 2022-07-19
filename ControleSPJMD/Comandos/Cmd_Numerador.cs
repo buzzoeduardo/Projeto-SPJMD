@@ -26,7 +26,7 @@ namespace ControleSPJMD.Comandos
             Tipo = tipo.ToUpper();
             IdUsuario = idUsuario;
             try
-            {
+            {               
                 cmd.CommandText = "select usuario.nome, numerador.id, numerador.tipo, numerador.numero, numerador.assunto, date_format(numerador.data, '%d-%m-%y')" +
                    "as data, numerador.destino, numerador.referencia, numerador.anexo, numerador.observacao from usuario join numerador on usuario.id = numerador.idUsuario " +
                    "where (year(data) = year(curdate())) and tipo = ?";
