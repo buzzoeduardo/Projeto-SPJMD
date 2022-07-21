@@ -5,7 +5,7 @@ namespace ControleSPJMD.Conexao
 {
     public class Conection
     {
-        MySqlConnection conexao = new MySqlConnection();
+       MySqlConnection conexao = new MySqlConnection();
 
         public Conection()
         {
@@ -26,8 +26,8 @@ namespace ControleSPJMD.Conexao
             if (conexao.State == ConnectionState.Open)
             {
                 conexao.Close();
-                conexao.Dispose();
             }
+            conexao.Dispose();
         }
     }
 }

@@ -42,15 +42,17 @@ namespace ControleSPJMD.Janelas
 
         public void GridInicial(object sender, RoutedEventArgs e)
         {
-            btn_Limpar(sender, e);  
+            btn_Limpar(sender, e);
             gridPmPrincipal.DataContext = control.PM_Principal();
             btnRetornar.Visibility = Visibility.Collapsed;
             gridPmPrincipal.Visibility = Visibility.Visible;
             gridNovoPM.Visibility = Visibility.Collapsed;
             gridEditarPM.Visibility = Visibility.Collapsed;
+            gridPmDetalhes.Visibility = Visibility.Collapsed;
             lblNomeGridPM.Content = "POLICIAIS MILITARES";
             lblQtdPMPrincipal.Content = null;
             btnEditarPm.Visibility = Visibility.Collapsed;
+            btnDetalhePm.Visibility = Visibility.Collapsed;
         }
 
         private void Retornar(object sender, RoutedEventArgs e)
@@ -98,8 +100,11 @@ namespace ControleSPJMD.Janelas
                 btnRetornar.Visibility = Visibility.Visible;
                 gridPmPrincipal.Visibility = Visibility.Collapsed;
                 gridEditarPM.Visibility = Visibility.Collapsed;
+                gridPmDetalhes.Visibility = Visibility.Collapsed;
                 gridNovoPM.Visibility = Visibility.Visible;
                 lblNomeGridPM.Content = btnNovoPM.Content.ToString();
+                btnDetalhePm.Visibility = Visibility.Collapsed;
+                btnEditarPm.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -186,9 +191,12 @@ namespace ControleSPJMD.Janelas
         {
             if (btnEditarPm.Visibility == Visibility.Collapsed)
             {
+                if (btnDetalhePm.Visibility == Visibility.Collapsed)
+                {
+                    btnDetalhePm.Visibility = Visibility.Visible;
+                }
                 btnEditarPm.Visibility = Visibility.Visible;
                 DataRowView? x = dtPmPrincipal.SelectedItem as DataRowView;
-
                 RE_PM = x?[1].ToString();
             }
         }
@@ -197,34 +205,39 @@ namespace ControleSPJMD.Janelas
         {
             if (gridEditarPM.Visibility == Visibility.Collapsed)
             {
+                lblNomeGridPM.Content = btnEditarPm.Content;
+                btnRetornar.Visibility = Visibility.Visible;
                 gridEditarPM.Visibility = Visibility.Visible;
                 gridPmPrincipal.Visibility = Visibility.Collapsed;
+                gridPmDetalhes.Visibility = Visibility.Collapsed;
+
+                DataTable dt = new DataTable();
+                dt.Clear();
+                dt.Dispose();
+                dt = control.Editar_PM(RE_PM);
+
+                Id_PM = dt.Rows[0][4].ToString();
+
+                cbxPostGrad_Editar.SelectedItem = dt.Rows[0][0].ToString();
+                txtRE_Editar.Text = dt.Rows[0][1].ToString();
+                txtDig_Editar.Text = dt.Rows[0][2].ToString();
+                txtNomePM_Editar.Text = dt.Rows[0][3].ToString();
+                txtEmail_Editar.Text = dt.Rows[0][5].ToString().Trim();
+                txtCpf_Editar.Text = dt.Rows[0][6].ToString();
+                txtRg_Editar.Text = dt.Rows[0][7].ToString();
+
+                string? nasc = dt.Rows[0][8].ToString();
+                DateTime dtNasc = DateTime.Parse(nasc);
+                dataNasc_Editar.Text = dtNasc.ToString("dd/MM/yyyy");
+
+                string? adm = dt.Rows[0][9].ToString();
+                DateTime dtAdm = DateTime.Parse(adm);
+                dataAdm_Editar.Text = dtAdm.ToString("dd/MM/yyyy");
+
+                txtTelefone_Editar.Text = dt.Rows[0][10].ToString();
+                txtTelefone2_Editar.Text = dt.Rows[0][11].ToString();
+                cbxSituacao_Editar.SelectedItem = dt.Rows[0][12];
             }
-
-            DataTable dt = new DataTable();
-            dt = control.Editar_PM(RE_PM);
-
-            Id_PM = dt.Rows[0][4].ToString();
-
-            cbxPostGrad_Editar.SelectedItem = dt.Rows[0][0].ToString();
-            txtRE_Editar.Text = dt.Rows[0][1].ToString();
-            txtDig_Editar.Text = dt.Rows[0][2].ToString();
-            txtNomePM_Editar.Text = dt.Rows[0][3].ToString();          
-            txtEmail_Editar.Text = dt.Rows[0][5].ToString().Trim();
-            txtCpf_Editar.Text = dt.Rows[0][6].ToString();
-            txtRg_Editar.Text = dt.Rows[0][7].ToString();
-            
-            string? nasc = dt.Rows[0][8].ToString();
-            DateTime dtNasc = DateTime.Parse(nasc);            
-            dataNasc_Editar.Text = dtNasc.ToString("dd/MM/yyyy");
-
-            string? adm = dt.Rows[0][9].ToString();
-            DateTime dtAdm = DateTime.Parse(adm);
-            dataAdm_Editar.Text = dtAdm.ToString("dd/MM/yyyy");
-
-            txtTelefone_Editar.Text = dt.Rows[0][10].ToString();
-            txtTelefone2_Editar.Text = dt.Rows[0][11].ToString();
-            cbxSituacao_Editar.SelectedItem = dt.Rows[0][12];            
         }
 
         private void btnSalvarPM_Editar_Click(object sender, RoutedEventArgs e)
@@ -266,7 +279,7 @@ namespace ControleSPJMD.Janelas
                         {
                             dtAdm = dataAdm_Editar.Text;
                         }
-                        control.Salvar_Edit_PM(Id_PM, txtRE_Editar.Text, txtDig_Editar.Text, cbxPostGrad_Editar.Text, txtNomePM_Editar.Text, 
+                        control.Salvar_Edit_PM(Id_PM, txtRE_Editar.Text, txtDig_Editar.Text, cbxPostGrad_Editar.Text, txtNomePM_Editar.Text,
                             txtEmail_Editar.Text, txtCpf_Editar.Text, txtRg_Editar.Text,
                             dtNasc, dtAdm, txtTelefone_Editar.Text, txtTelefone2_Editar.Text, cbxSituacao_Editar.Text);
                         PM_Cadastrado = control.Resultado;
@@ -286,24 +299,71 @@ namespace ControleSPJMD.Janelas
                         }
                     }
                 }
-
             }
         }
 
         private void btnDeletarPM_Click(object sender, RoutedEventArgs e)
         {
             control.Deletar_PM(Id_PM);
-            if(control.PM_Vinc == false)
+            if (control.PM_Vinc == false)
             {
                 Del_PM = true;
                 Mensagem_Confirmar_Delete men = new Mensagem_Confirmar_Delete();
                 men.DelPM = Del_PM;
                 men.Id_PM = Id_PM;
-                men.ShowDialog();                
+                men.ShowDialog();
                 Retornar(sender, e);
             }
             Del_PM = false;
         }
-      
+
+        private void btnDetalhePm_Click(object sender, RoutedEventArgs e)
+        {
+            if (gridPmDetalhes.Visibility == Visibility.Collapsed)
+            {
+                lblNomeGridPM.Content = btnDetalhePm.Content;
+                btnRetornar.Visibility = Visibility.Visible;
+                gridPmDetalhes.Visibility = Visibility.Visible;
+                gridPmPrincipal.Visibility = Visibility.Collapsed;
+                gridEditarPM.Visibility = Visibility.Collapsed;
+
+                DataTable dt = new DataTable();               
+                dt = control.Editar_PM(RE_PM);
+
+                Id_PM = dt.Rows[0][4].ToString();
+                dt.Clear();
+                dt.Dispose();
+                /*
+                lblNomeDetalhes.Content = dt.Rows[0][0].ToString() + " " + dt.Rows[0][1].ToString() + "-" + dt.Rows[0][2].ToString() + " " + dt.Rows[0][3].ToString();
+                lblEmailDetalhes.Content = dt.Rows[0][5].ToString().ToLower().Trim();
+                lblCpfDetalhes.Content = dt.Rows[0][6].ToString();
+                lblRgDetalhes.Content = dt.Rows[0][7].ToString();
+                string? nasc = dt.Rows[0][8].ToString();
+                DateTime dtNasc = DateTime.Parse(nasc);
+                lblNascDetalhes.Content = dtNasc.ToString("dd/MM/yyyy");
+                string? adm = dt.Rows[0][9].ToString();
+                DateTime dtAdm = DateTime.Parse(adm);
+                lblAdmDetalhes.Content = dtAdm.ToString("dd/MM/yyyy");
+                lblTel1_Detalhes.Content = dt.Rows[0][10].ToString();
+                lblTel2_Detalhes.Content = dt.Rows[0][11].ToString();
+                lblSituacaoDetalhes.Content = dt.Rows[0][12];
+                */
+                //dtPmDetalhes.DataContext = ;
+                //lblQtdTotalProcess.Content = control.Qtd_Process_PM(Id_PM).ToString();
+                control.Qtd_Process_PM(Id_PM);
+                lblQtdTotalProcess.Content = control.Qtd_Process.ToString();
+                lblQtdApuracao.Content = control.Qtd_Apuracao.ToString();
+                lblQtdIp.Content = control.Qtd_Ip.ToString();
+                lblQtdIpm.Content = control.Qtd_Ipm.ToString();
+                lblQtdPd.Content = control.Qtd_Dp.ToString();
+                lblQtdProcessReg.Content = control.Qtd_ProcessRegular.ToString();
+                lblQtdSindicancia.Content = control.Qtd_SIndicancia.ToString();
+            }
+        }
+
+        private void Processos_Detalhes(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
