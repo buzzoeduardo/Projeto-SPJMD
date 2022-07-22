@@ -12,6 +12,7 @@ namespace ControleSPJMD.Controle
     {
         Cmd_Policiais cmd = new Cmd_Policiais();
         DataTable dt = new DataTable();
+        DataTable dt2 = new DataTable();
 
         //public DataTable? Dt { get; private set; }
         public string? Resultado { get; private set; }
@@ -93,6 +94,12 @@ namespace ControleSPJMD.Controle
             Qtd_Ipm = cmd.Qtd_Ipm;
             Qtd_ProcessRegular = cmd.Qtd_ProcessRegular;
             Qtd_SIndicancia = cmd.Qtd_Sindicancia;
+        }
+
+        public DataTable Process_PM_Selecionado(int valorRd, string id)
+        {
+            FecharDataTable();
+            return dt2 = cmd.ProcessPMSelecionado(valorRd, id);
         }
     }
 }

@@ -165,7 +165,6 @@ namespace ControleSPJMD.Janelas
                         }
                     }
                 }
-
             }
         }
 
@@ -319,6 +318,15 @@ namespace ControleSPJMD.Janelas
 
         private void btnDetalhePm_Click(object sender, RoutedEventArgs e)
         {
+            SolidColorBrush colorPadrao = new SolidColorBrush(Color.FromRgb(99, 116, 166));
+            SolidColorBrush colorRed = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+            lblQtdApuracao.Foreground = colorPadrao;
+            lblQtdIp.Foreground = colorPadrao;
+            lblQtdIpm.Foreground = colorPadrao;
+            lblQtdPd.Foreground = colorPadrao;
+            lblQtdProcessReg.Foreground = colorPadrao;
+            lblQtdSindicancia.Foreground = colorPadrao;
+            lblQtdTotalProcess.Foreground = colorPadrao;
             if (gridPmDetalhes.Visibility == Visibility.Collapsed)
             {
                 lblNomeGridPM.Content = btnDetalhePm.Content;
@@ -327,30 +335,42 @@ namespace ControleSPJMD.Janelas
                 gridPmPrincipal.Visibility = Visibility.Collapsed;
                 gridEditarPM.Visibility = Visibility.Collapsed;
 
-                DataTable dt = new DataTable();               
+                DataTable dt = new DataTable();
                 dt = control.Editar_PM(RE_PM);
 
                 Id_PM = dt.Rows[0][4].ToString();
                 dt.Clear();
                 dt.Dispose();
-                /*
-                lblNomeDetalhes.Content = dt.Rows[0][0].ToString() + " " + dt.Rows[0][1].ToString() + "-" + dt.Rows[0][2].ToString() + " " + dt.Rows[0][3].ToString();
-                lblEmailDetalhes.Content = dt.Rows[0][5].ToString().ToLower().Trim();
-                lblCpfDetalhes.Content = dt.Rows[0][6].ToString();
-                lblRgDetalhes.Content = dt.Rows[0][7].ToString();
-                string? nasc = dt.Rows[0][8].ToString();
-                DateTime dtNasc = DateTime.Parse(nasc);
-                lblNascDetalhes.Content = dtNasc.ToString("dd/MM/yyyy");
-                string? adm = dt.Rows[0][9].ToString();
-                DateTime dtAdm = DateTime.Parse(adm);
-                lblAdmDetalhes.Content = dtAdm.ToString("dd/MM/yyyy");
-                lblTel1_Detalhes.Content = dt.Rows[0][10].ToString();
-                lblTel2_Detalhes.Content = dt.Rows[0][11].ToString();
-                lblSituacaoDetalhes.Content = dt.Rows[0][12];
-                */
-                //dtPmDetalhes.DataContext = ;
-                //lblQtdTotalProcess.Content = control.Qtd_Process_PM(Id_PM).ToString();
+
                 control.Qtd_Process_PM(Id_PM);
+                if (control.Qtd_Process > 0)
+                {
+                    lblQtdTotalProcess.Foreground = colorRed;
+                }
+                if (control.Qtd_Apuracao > 0)
+                {
+                    lblQtdApuracao.Foreground = colorRed;
+                }
+                if (control.Qtd_Ip > 0)
+                {
+                    lblQtdIp.Foreground = colorRed;
+                }
+                if (control.Qtd_Ipm > 0)
+                {
+                    lblQtdIpm.Foreground = colorRed;
+                }
+                if (control.Qtd_Dp > 0)
+                {
+                    lblQtdPd.Foreground = colorRed;
+                }
+                if (control.Qtd_ProcessRegular > 0)
+                {
+                    lblQtdProcessReg.Foreground = colorRed;
+                }
+                if (control.Qtd_SIndicancia > 0)
+                {
+                    lblQtdSindicancia.Foreground = colorRed;
+                }
                 lblQtdTotalProcess.Content = control.Qtd_Process.ToString();
                 lblQtdApuracao.Content = control.Qtd_Apuracao.ToString();
                 lblQtdIp.Content = control.Qtd_Ip.ToString();
@@ -363,7 +383,20 @@ namespace ControleSPJMD.Janelas
 
         private void Processos_Detalhes(object sender, RoutedEventArgs e)
         {
-
+            int valorRd = 0;
+            RadioButton? rd = sender as RadioButton;
+            switch (rd.Content)
+            {
+                case "Processo Regular": valorRd = 1; break;
+                case "IPM": valorRd = 2; break;
+                case "Sindicância": valorRd = 3; break;
+                case "IP": valorRd = 4; break;
+                case "PD": valorRd = 5; break;
+                case "Apuração Preliminar": valorRd = 6; break;
+            }
+            DataTable dt = new DataTable();
+            dt.Clear();
+            gridPmDetalhes.DataContext = dt = control.Process_PM_Selecionado(valorRd, Id_PM);
         }
     }
 }

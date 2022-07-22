@@ -15,6 +15,7 @@ namespace ControleSPJMD.Comandos
         private MySqlCommand cmd = new MySqlCommand();
         private Conection con = new Conection();
         private DataTable dt = new DataTable();
+        private DataTable dtProcess = new DataTable();
         private MySqlDataReader? dr;
 
         //public DataTable? Dt { get; private set; }
@@ -36,8 +37,6 @@ namespace ControleSPJMD.Comandos
         public int? Qtd_Encarregado { get; private set; } = 0;
         public int? Qtd_Pd { get; private set; } = 0;
         public int? Qtd_ProcessRegular { get; private set; } = 0;
-
-
 
         public string SalvarPolicial(string re, string dig, string posto, string nome, string email, string cpf, string rg, string dataNasc, string dataAdm,
             string telefone, string telefone2, string situacao)
@@ -99,8 +98,6 @@ namespace ControleSPJMD.Comandos
                 {
                     cmd.Connection = con.Conectar();
                     cmd.ExecuteNonQuery();
-                    //cmd.Dispose();
-                    //con.Desconectar();
                 }
                 catch (MySqlException e)
                 {
@@ -110,7 +107,7 @@ namespace ControleSPJMD.Comandos
                 {
                     con.Desconectar();
                     cmd.Dispose();
-                    ResultPM = Posto + " " + Re + "-" + Dig + " " + Nome;
+                    ResultPM = String.Format("{0} {1}-{2} {3}", Posto, Re, Dig, Nome); 
                 }
             }
             return ResultPM;
@@ -166,7 +163,7 @@ namespace ControleSPJMD.Comandos
 
         public DataTable EditarPM(string entrada)
         {
-            cmd.CommandText = "select id, re, dig, posto, nome, email, cpf, rg, date_format(dataNasc, '%d-%m-%y'), date_format(dataAdm, '%d-%m-%y'), telefone, telefone2, situacao from policial where re = ?";
+            cmd.CommandText = "select id, re, dig, posto, nome, email, cpf, rg, date_format(dataNasc, '%d-%m-%y') as data, date_format(dataAdm, '%d-%m-%y') as data, telefone, telefone2, situacao from policial where re = ?";
             cmd.Parameters.Clear();
             cmd.Parameters.Add("@re", MySqlDbType.VarChar, 6).Value = entrada;
             try
@@ -231,7 +228,7 @@ namespace ControleSPJMD.Comandos
             {
                 con.Desconectar();
                 cmd.Dispose();
-                ResultPM = Posto + " " + Re + "-" + Dig + " " + Nome;
+                ResultPM = String.Format("{0} {1}-{2} {3}", Posto, Re, Dig, Nome); 
             }
             return ResultPM;
         }
@@ -298,7 +295,7 @@ namespace ControleSPJMD.Comandos
 
         public void QtdProcedimentosPorPM(string id)
         {
-            cmd.CommandText = "select id_procedimento, id_processoRegular, id_ipm, id_sindicancia, id_ip, id_pd, id_apura_preliminar " +
+            cmd.CommandText = "select id_procedimento, id_processregular, id_ipm, id_sindicancia, id_ip, id_pd, id_apura_preliminar " +
                 "from procedimento where id_pm = ?";
             cmd.Parameters.Clear();
             cmd.Parameters.Add("@id_pm", MySqlDbType.Int32).Value = id;
@@ -314,12 +311,6 @@ namespace ControleSPJMD.Comandos
 
                 if (Qtd_Process > 0)
                 {
-                    //Qtd_ProcessRegular = 0;
-                    //Qtd_Ipm = 0;
-                    //Qtd_Ip = 0;
-                    //Qtd_Pd = 0;
-                    // Qtd_Apuracao = 0;
-                    //Qtd_Sindicancia = 0;
                     for (int i = 0; i < Qtd_Process; i++)
                     {
                         Qtd_ProcessRegular = Qtd_ProcessRegular + dt.Rows[i][1].ToString().Count();
@@ -348,6 +339,43 @@ namespace ControleSPJMD.Comandos
                 con.Desconectar();
                 cmd.Dispose();
             }
+        }
+
+        public DataTable ProcessPMSelecionado(int valorRd, string id)
+        {
+            string nomeProcess = "";
+            switch (valorRd)
+            {
+                case 1: nomeProcess = "processregular"; break;
+                case 2: nomeProcess = "ipm"; break;
+                case 3: nomeProcess = "sindicancia"; break;
+                case 4: nomeProcess = "ip"; break;
+                case 5: nomeProcess = "pd"; break;
+                case 6: nomeProcess = "apura_preliminar"; break;
+            }
+            cmd.CommandText = String.Format("select {0}.tipificacao, {0}.numero, {0}.prefixo, date_format({0}.dataInstaura, '%d-%m-%y') as data, " +
+                "date_format({0}.dataEncerra, '%d-%m-%y') as data from {0} join procedimento on {0}.id = procedimento.id_{0} where procedimento.id_pm = ?", nomeProcess);
+            cmd.Parameters.Clear();
+            cmd.Parameters.Add("@id_pm", MySqlDbType.Int32).Value = id;
+            
+            try
+            {
+                cmd.Connection = con.Conectar();
+                dtProcess.Clear();
+                dtProcess.Load(cmd.ExecuteReader());
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show("Erro com o Banco de Dados" + e, "ERRO!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                //var dataIni = dtProcess.Rows[0][3];
+               // var dataIni2 = dtProcess.Rows[0][4];
+                con.Desconectar();
+                cmd.Dispose();
+            }
+            return dtProcess;
         }
     }
 }

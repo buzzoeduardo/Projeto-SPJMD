@@ -64,7 +64,7 @@
         </Grid>
 
 
-        <Grid x:Name="gridPmPrincipal" Visibility="Visible" Grid.Column="1" Margin="10,10,10,10" Grid.Row="1">
+        <Grid x:Name="gridPmPrincipal" Visibility="Collapsed" Grid.Column="1" Margin="10,10,10,10" Grid.Row="1">
             <DataGrid x:Name="dtPmPrincipal" AutoGenerateColumns="False"  ItemsSource="{Binding}" AlternationCount="2" RowBackground="White" AlternatingRowBackground="#FF6374A6" Height="483" VerticalAlignment="Top" GridLinesVisibility="All" SelectionUnit="FullRow" SelectionMode="Extended" HorizontalGridLinesBrush="Black" VerticalGridLinesBrush="Black" CanUserDeleteRows="False" CanUserResizeRows="False" IsReadOnly="True" ScrollViewer.CanContentScroll="False" RowDetailsVisibilityMode="VisibleWhenSelected" Background="White" Margin="0,107,0,0" HorizontalAlignment="Center" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" BorderBrush="Black" Foreground="#DD000000" HeadersVisibility="Column" BorderThickness="1,1,1,1" SelectedCellsChanged="dtPmPrincipal_SelectedCellsChanged" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding posto}" Header="Post/Grad" Width="140" FontSize="12" FontFamily="Verdana"  FontWeight="Bold"/>
@@ -174,7 +174,7 @@
         </Grid>
 
 
-        <Grid x:Name="gridPmDetalhes" Visibility="Collapsed" Grid.Column="1" Margin="10,10,10,10" Grid.Row="1">
+        <Grid x:Name="gridPmDetalhes" Visibility="Visible" Grid.Column="1" Margin="10,10,10,10" Grid.Row="1">
             <Label x:Name="lblNomeDetalhes" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="1040" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF6374A6" Height="39" FontSize="14"/>
             <Label Content="E-mail funcional" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="153" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="Black" Margin="10,42,0,0"/>
             <Label x:Name="lblEmailDetalhes" Content="eduardohbl@policiamilitar.sp.gov.br" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="733" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="#FF6374A6" Margin="10,65,0,0"/>
@@ -195,9 +195,10 @@
             <DataGrid x:Name="dtPmDetalhes" AutoGenerateColumns="False"  ItemsSource="{Binding}" AlternationCount="2" RowBackground="White" AlternatingRowBackground="#FF6374A6" Height="363" VerticalAlignment="Top" GridLinesVisibility="All" SelectionUnit="FullRow" SelectionMode="Extended" HorizontalGridLinesBrush="Black" VerticalGridLinesBrush="Black" CanUserDeleteRows="False" CanUserResizeRows="False" IsReadOnly="True" ScrollViewer.CanContentScroll="False" RowDetailsVisibilityMode="VisibleWhenSelected" Background="White" Margin="358,227,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" BorderBrush="Black" Foreground="#DD000000" HeadersVisibility="Column" BorderThickness="1,1,1,1" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding tipificacao}" Header="Tipo" FontSize="12" FontFamily="Verdana" Width="250" FontWeight="Bold"/>
-                    <DataGridTextColumn Binding="{Binding numero}" Header="Nº" FontSize="14" Width="200" FontFamily="Verdana" FontWeight="Bold"/>
-                    <DataGridTextColumn Binding="{Binding dataInstaura, ConverterCulture='pt-BR', StringFormat=\{0:dd.MM.yy\}}" Header="Instauração" FontSize="11" Width="120" FontFamily="Verdana" FontWeight="Bold"/>
-                    <DataGridTextColumn Binding="{Binding dataEncerra, ConverterCulture='pt-BR', StringFormat=\{0:dd.MM.yy\}}" Header="Encerramento" FontSize="12" Width="120" FontFamily="Verdana" FontWeight="Bold"/>
+                    <DataGridTextColumn Binding="{Binding numero}" Header="Nº" FontSize="14" Width="60" FontFamily="Verdana" FontWeight="Bold"/>
+                    <DataGridTextColumn Binding="{Binding prefixo}" Header="prefixo" FontSize="14" Width="60" FontFamily="Verdana" FontWeight="Bold"/>
+                    <DataGridTextColumn Binding="{Binding dataInstaura, ConverterCulture='pt-BR', StringFormat=\{0:dd.MM.yy\}}" Header="Instauração" FontSize="11" Width="150" FontFamily="Verdana" FontWeight="Bold"/>
+                    <DataGridTextColumn Binding="{Binding dataEncerra, ConverterCulture='pt-BR', StringFormat=\{0:dd.MM.yy\}}" Header="Encerramento" FontSize="12" Width="150" FontFamily="Verdana" FontWeight="Bold"/>
                 </DataGrid.Columns>
                 <DataGrid.RowDetailsTemplate>
                     <DataTemplate x:Name="dataTemplate" >
