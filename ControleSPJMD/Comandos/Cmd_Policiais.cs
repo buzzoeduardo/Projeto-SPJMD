@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -341,20 +342,20 @@ namespace ControleSPJMD.Comandos
             }
         }
 
-        public DataTable ProcessPMSelecionado(int valorRd, string id)
+        public DataTable ProcessPMSelecionado(string valorRd, string id)
         {
             string nomeProcess = "";
             switch (valorRd)
             {
-                case 1: nomeProcess = "processregular"; break;
-                case 2: nomeProcess = "ipm"; break;
-                case 3: nomeProcess = "sindicancia"; break;
-                case 4: nomeProcess = "ip"; break;
-                case 5: nomeProcess = "pd"; break;
-                case 6: nomeProcess = "apura_preliminar"; break;
+                case "Processo Regular": nomeProcess = "processregular"; break;
+                case "IPM": nomeProcess = "ipm"; break;
+                case "Sindicância": nomeProcess = "sindicancia"; break;
+                case "IP": nomeProcess = "ip"; break;
+                case "PD": nomeProcess = "pd"; break;
+                case "Apuração Preliminar": nomeProcess = "apura_preliminar"; break;
             }
-            cmd.CommandText = String.Format("select {0}.tipificacao, {0}.numero, {0}.prefixo, date_format({0}.dataInstaura, '%d-%m-%y') as data, " +
-                "date_format({0}.dataEncerra, '%d-%m-%y') as data from {0} join procedimento on {0}.id = procedimento.id_{0} where procedimento.id_pm = ?", nomeProcess);
+            cmd.CommandText = String.Format("select {0}.tipificacao, {0}.numero, {0}.prefixo, date_format({0}.dataInstaura, '%d-%m-%y') as dataInstaura, " +
+                "date_format({0}.dataEncerra, '%d-%m-%y') as dataEncerra from {0} join procedimento on {0}.id = procedimento.id_{0} where procedimento.id_pm = ?", nomeProcess);
             cmd.Parameters.Clear();
             cmd.Parameters.Add("@id_pm", MySqlDbType.Int32).Value = id;
             
@@ -370,8 +371,6 @@ namespace ControleSPJMD.Comandos
             }
             finally
             {
-                //var dataIni = dtProcess.Rows[0][3];
-               // var dataIni2 = dtProcess.Rows[0][4];
                 con.Desconectar();
                 cmd.Dispose();
             }

@@ -96,7 +96,7 @@ namespace ControleSPJMD.Controle
             Qtd_SIndicancia = cmd.Qtd_Sindicancia;
         }
 
-        public DataTable Process_PM_Selecionado(int valorRd, string id)
+        public DataTable Process_PM_Selecionado(string valorRd, string id)
         {
             FecharDataTable();
             return dt2 = cmd.ProcessPMSelecionado(valorRd, id);

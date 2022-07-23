@@ -378,25 +378,40 @@ namespace ControleSPJMD.Janelas
                 lblQtdPd.Content = control.Qtd_Dp.ToString();
                 lblQtdProcessReg.Content = control.Qtd_ProcessRegular.ToString();
                 lblQtdSindicancia.Content = control.Qtd_SIndicancia.ToString();
+
+                DataTable dtPreenchimento = new DataTable();
+                dtPreenchimento.Clear();
+                dtPreenchimento.Dispose();
+                dtPreenchimento = control.Editar_PM(RE_PM);
+
+                lblNomeDetalhes.Content = String.Format("{0} {1}-{2} {3}", dtPreenchimento.Rows[0][3], dtPreenchimento.Rows[0][1], dtPreenchimento.Rows[0][2], dtPreenchimento.Rows[0][4]);
+                lblEmailDetalhes.Text = dtPreenchimento.Rows[0][5].ToString();
+                lblCpfDetalhes.Text = dtPreenchimento.Rows[0][6].ToString();
+                lblRgDetalhes.Text = dtPreenchimento.Rows[0][7].ToString();
+
+                string? dtNasc = dtPreenchimento.Rows[0][8].ToString();
+                DateTime Nasc = DateTime.Parse(dtNasc);
+                lblNascDetalhes.Text = Nasc.ToString("dd/MM/yyyy");
+
+                //lblNascDetalhes.Content = dtPreenchimento.Rows[0][8];
+                string? dtAdm = dtPreenchimento.Rows[0][9].ToString();
+                DateTime Adm = DateTime.Parse(dtAdm);
+                lblAdmDetalhes.Text = Adm.ToString("dd/MM/yyyy");
+
+                //lblAdmDetalhes.Content = dtPreenchimento.Rows[0][9];
+                lblSituacaoDetalhes.Text = dtPreenchimento.Rows[0][12].ToString();
+                lblTel1_Detalhes.Text = dtPreenchimento.Rows[0][10].ToString();
+                lblTel2_Detalhes.Text = dtPreenchimento.Rows[0][11].ToString();                
             }
         }
 
         private void Processos_Detalhes(object sender, RoutedEventArgs e)
-        {
-            int valorRd = 0;
-            RadioButton? rd = sender as RadioButton;
-            switch (rd.Content)
-            {
-                case "Processo Regular": valorRd = 1; break;
-                case "IPM": valorRd = 2; break;
-                case "Sindicância": valorRd = 3; break;
-                case "IP": valorRd = 4; break;
-                case "PD": valorRd = 5; break;
-                case "Apuração Preliminar": valorRd = 6; break;
-            }
+        {  
+            RadioButton? rd = sender as RadioButton;           
             DataTable dt = new DataTable();
             dt.Clear();
-            gridPmDetalhes.DataContext = dt = control.Process_PM_Selecionado(valorRd, Id_PM);
+            dt = control.Process_PM_Selecionado(rd.Content.ToString(), Id_PM);
+            dtPmDetalhes.DataContext = dt;
         }
     }
 }

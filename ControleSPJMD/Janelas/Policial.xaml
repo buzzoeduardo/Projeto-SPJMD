@@ -64,7 +64,7 @@
         </Grid>
 
 
-        <Grid x:Name="gridPmPrincipal" Visibility="Collapsed" Grid.Column="1" Margin="10,10,10,10" Grid.Row="1">
+        <Grid x:Name="gridPmPrincipal" Visibility="Visible" Grid.Column="1" Margin="10,10,10,10" Grid.Row="1">
             <DataGrid x:Name="dtPmPrincipal" AutoGenerateColumns="False"  ItemsSource="{Binding}" AlternationCount="2" RowBackground="White" AlternatingRowBackground="#FF6374A6" Height="483" VerticalAlignment="Top" GridLinesVisibility="All" SelectionUnit="FullRow" SelectionMode="Extended" HorizontalGridLinesBrush="Black" VerticalGridLinesBrush="Black" CanUserDeleteRows="False" CanUserResizeRows="False" IsReadOnly="True" ScrollViewer.CanContentScroll="False" RowDetailsVisibilityMode="VisibleWhenSelected" Background="White" Margin="0,107,0,0" HorizontalAlignment="Center" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" BorderBrush="Black" Foreground="#DD000000" HeadersVisibility="Column" BorderThickness="1,1,1,1" SelectedCellsChanged="dtPmPrincipal_SelectedCellsChanged" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding posto}" Header="Post/Grad" Width="140" FontSize="12" FontFamily="Verdana"  FontWeight="Bold"/>
@@ -174,50 +174,32 @@
         </Grid>
 
 
-        <Grid x:Name="gridPmDetalhes" Visibility="Visible" Grid.Column="1" Margin="10,10,10,10" Grid.Row="1">
+        <Grid x:Name="gridPmDetalhes" Visibility="Collapsed" Grid.Column="1" Margin="10,10,10,10" Grid.Row="1">
             <Label x:Name="lblNomeDetalhes" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="1040" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF6374A6" Height="39" FontSize="14"/>
-            <Label Content="E-mail funcional" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="153" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="Black" Margin="10,42,0,0"/>
-            <Label x:Name="lblEmailDetalhes" Content="eduardohbl@policiamilitar.sp.gov.br" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="733" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="#FF6374A6" Margin="10,65,0,0"/>
-            <Label Content="CPF" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="42" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="Black" Margin="10,93,0,0"/>
-            <Label x:Name="lblCpfDetalhes" Content="347.138.968-70" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="122" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="#FF6374A6" Margin="10,116,0,0"/>
-            <Label Content="RG" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="153" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="Black" Margin="186,93,0,0"/>
-            <Label x:Name="lblRgDetalhes" Content="40011225" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="132" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="#FF6374A6" Margin="186,116,0,0"/>
-            <Label Content="Data Nasc." HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="153" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="Black" Margin="313,93,0,0"/>
-            <Label x:Name="lblNascDetalhes" Content="10/08/1984" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="111" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="#FF6374A6" Margin="313,116,0,0"/>
-            <Label Content="Data Admi" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="153" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="Black" Margin="466,93,0,0"/>
-            <Label x:Name="lblAdmDetalhes" Content="10/08/1984" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="111" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="#FF6374A6" Margin="466,116,0,0"/>
-            <Label Content="Telefone (1)" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="119" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="Black" Margin="760,93,0,0"/>
-            <Label x:Name="lblTel1_Detalhes" Content="14-982278953" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="119" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="#FF6374A6" Margin="760,116,0,0"/>
-            <Label Content="Telefone (2)" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="119" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="Black" Margin="931,93,0,0"/>
-            <Label x:Name="lblTel2_Detalhes" Content="14-98227895" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="119" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="#FF6374A6" Margin="931,116,0,0"/>
-            <Label Content="Situação" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="109" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="Black" Margin="614,93,0,0"/>
-            <Label x:Name="lblSituacaoDetalhes" Content="Movimentado" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="146" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="#FF6374A6" Margin="614,116,0,0"/>
+            <Label Content="E-mail funcional" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="713" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" Margin="10,42,0,0"/>
+            <TextBox x:Name="lblEmailDetalhes" HorizontalAlignment="Center" Margin="10,65,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="713" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF6374A6" BorderThickness="0,0,0,0" IsReadOnly="True" Padding="2,4,0,4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label Content="CPF" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="142" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" Margin="10,93,0,0"/>
+            <TextBox x:Name="lblCpfDetalhes" HorizontalAlignment="Left" Margin="10,116,0,0" TextWrapping="Wrap" Text="Text" VerticalAlignment="Top" Width="142" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF6374A6" BorderThickness="0,0,0,0" IsReadOnly="True" Padding="2,4,0,4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label Content="RG" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="123" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" Margin="177,93,0,0"/>
+            <TextBox x:Name="lblRgDetalhes" HorizontalAlignment="Left" Margin="177,116,0,0" TextWrapping="Wrap" Text="Text" VerticalAlignment="Top" Width="123" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF6374A6" BorderThickness="0,0,0,0" IsReadOnly="True" Padding="2,4,0,4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label Content="Data Nasc." HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="111" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" Margin="313,93,0,0"/>
+            <TextBox x:Name="lblNascDetalhes"  HorizontalAlignment="Left" Margin="313,116,0,0" TextWrapping="Wrap" Text="Text" VerticalAlignment="Top" Width="111" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF6374A6" BorderThickness="0,0,0,0" IsReadOnly="True" Padding="2,4,0,4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label Content="Data Admi" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="111" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" Margin="466,93,0,0"/>
+            <TextBox x:Name="lblAdmDetalhes"  HorizontalAlignment="Left" Margin="466,116,0,0" TextWrapping="Wrap" Text="Text" VerticalAlignment="Top" Width="111" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF6374A6" BorderThickness="0,0,0,0" IsReadOnly="True" Padding="2,4,0,4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label Content="Situação" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="123" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" Margin="614,93,0,0"/>
+            <TextBox x:Name="lblSituacaoDetalhes" HorizontalAlignment="Left" Margin="614,116,0,0" TextWrapping="Wrap" Text="Movimentado" VerticalAlignment="Top" Width="123" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF6374A6" BorderThickness="0,0,0,0" IsReadOnly="True" Padding="2,4,0,4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label Content="Telefone (1)" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="123" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" Margin="760,93,0,0"/>
+            <TextBox x:Name="lblTel1_Detalhes" HorizontalAlignment="Left" Margin="760,116,0,0" TextWrapping="Wrap" Text="14-98227895" VerticalAlignment="Top" Width="123" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF6374A6" BorderThickness="0,0,0,0" IsReadOnly="True" Padding="2,4,0,4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label Content="Telefone (2)" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="123" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" Margin="927,93,0,0"/>
+            <TextBox x:Name="lblTel2_Detalhes" HorizontalAlignment="Left" Margin="927,116,0,0" TextWrapping="Wrap" Text="14-98227895" VerticalAlignment="Top" Width="123" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF6374A6" BorderThickness="0,0,0,0" IsReadOnly="True" Padding="2,4,0,4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <DataGrid x:Name="dtPmDetalhes" AutoGenerateColumns="False"  ItemsSource="{Binding}" AlternationCount="2" RowBackground="White" AlternatingRowBackground="#FF6374A6" Height="363" VerticalAlignment="Top" GridLinesVisibility="All" SelectionUnit="FullRow" SelectionMode="Extended" HorizontalGridLinesBrush="Black" VerticalGridLinesBrush="Black" CanUserDeleteRows="False" CanUserResizeRows="False" IsReadOnly="True" ScrollViewer.CanContentScroll="False" RowDetailsVisibilityMode="VisibleWhenSelected" Background="White" Margin="358,227,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" BorderBrush="Black" Foreground="#DD000000" HeadersVisibility="Column" BorderThickness="1,1,1,1" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding tipificacao}" Header="Tipo" FontSize="12" FontFamily="Verdana" Width="250" FontWeight="Bold"/>
                     <DataGridTextColumn Binding="{Binding numero}" Header="Nº" FontSize="14" Width="60" FontFamily="Verdana" FontWeight="Bold"/>
                     <DataGridTextColumn Binding="{Binding prefixo}" Header="prefixo" FontSize="14" Width="60" FontFamily="Verdana" FontWeight="Bold"/>
-                    <DataGridTextColumn Binding="{Binding dataInstaura, ConverterCulture='pt-BR', StringFormat=\{0:dd.MM.yy\}}" Header="Instauração" FontSize="11" Width="150" FontFamily="Verdana" FontWeight="Bold"/>
-                    <DataGridTextColumn Binding="{Binding dataEncerra, ConverterCulture='pt-BR', StringFormat=\{0:dd.MM.yy\}}" Header="Encerramento" FontSize="12" Width="150" FontFamily="Verdana" FontWeight="Bold"/>
+                    <DataGridTextColumn Binding="{Binding dataInstaura, ConverterCulture='pt-BR', StringFormat={}{0:dd/MM/yyyy}}" Header="Instauração" FontSize="11" Width="150" FontFamily="Verdana" FontWeight="Bold"/>
+                    <DataGridTextColumn Binding="{Binding dataEncerra, ConverterCulture='pt-BR', StringFormat={}{0:dd/MM/yyyy}}" Header="Encerramento" FontSize="12" Width="150" FontFamily="Verdana" FontWeight="Bold"/>
                 </DataGrid.Columns>
-                <DataGrid.RowDetailsTemplate>
-                    <DataTemplate x:Name="dataTemplate" >
-                        <Border BorderThickness="0" Background="#FF5DB95F">
-                            <StackPanel AutomationProperties.IsOffscreenBehavior="Default" ScrollViewer.HorizontalScrollBarVisibility="Auto" CanVerticallyScroll="True" CanHorizontallyScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                                <Label FontSize="17" FontWeight="Black">Destino:</Label>
-                                <TextBlock Text="{Binding destino}" Margin="15" TextWrapping="Wrap" FontSize="12" FontFamily="Verdana" FontWeight="Bold"/>
-                                <Label FontSize="17" FontWeight="Black">Referência:</Label>
-                                <TextBlock Text="{Binding referencia}" Margin="15" TextWrapping="Wrap" FontSize="12" FontFamily="Verdana" FontWeight="Bold" TextTrimming="CharacterEllipsis" Width="1000" HorizontalAlignment="Left"/>
-                                <Label FontSize="17" FontWeight="Black">Anexo:</Label>
-                                <TextBlock Text="{Binding anexo}" Margin="15" TextWrapping="Wrap" FontSize="12" FontFamily="Verdana" FontWeight="Bold" Width="1000" HorizontalAlignment="Left"/>
-                                <Label FontSize="17" FontWeight="Black">Usuário que Cadastrou:</Label>
-                                <TextBlock Text="{Binding nome}" Margin="15" TextWrapping="Wrap" FontSize="12" FontFamily="Verdana" FontWeight="Bold" HorizontalAlignment="Left" Width="1000"/>
-                                <Label FontSize="17" FontWeight="Black">Observação:</Label>
-                                <TextBlock Text="{Binding observacao}" Margin="15" TextWrapping="Wrap" FontSize="12" FontFamily="Verdana" FontWeight="Bold" Foreground="Red" Width="1000" HorizontalAlignment="Left"/>
-                            </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </DataGrid.RowDetailsTemplate>
             </DataGrid>
             <Label Content="Total de Feitos vincular ao Policial Militar : " HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="297" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="Black" Margin="3,236,0,0"/>
             <Label x:Name="lblQtdTotalProcess" Content="Qtd" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="39" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="#FF6374A6" Margin="300,236,0,0"/>
@@ -233,6 +215,10 @@
             <Label x:Name="lblQtdPd" Content="Qtd" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="50" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="#FF6374A6" Margin="49,404,0,0"/>
             <RadioButton Content="Apuração Preliminar" HorizontalAlignment="Left" Margin="95,434,0,0" VerticalAlignment="Top" Width="196" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Left" FontFamily="Verdana" FontWeight="Bold" Click="Processos_Detalhes"/>
             <Label x:Name="lblQtdApuracao" Content="Qtd" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Width="50" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="#FF6374A6" Margin="49,432,0,0"/>
+            <Button x:Name="btnRetornarDetalhes" Style="{StaticResource MaterialDesignFlatAccentBgButton}" Width="70" Background="#FF6374A6" BorderBrush="#FF6374A6" Foreground="White"  TabIndex="16" Margin="117,523,0,0" HorizontalAlignment="Left" Height="41" VerticalAlignment="Top" Click="Retornar" >
+                <materialDesign:PackIcon Kind="AssignmentReturn" Cursor="Hand" Height="28" Width="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Button>
+            <Label Content="RETORNAR" HorizontalAlignment="Left" Margin="117,561,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF020873" FontSize="10"/>
 
         </Grid>
     </Grid>
